@@ -116,9 +116,15 @@ app.post("/removeproduct", async (req, res) => {
 
 //creatng  app for gettting  all productts
 app.get("/allproducts", async (req, res) => {
-    res.send('Yes yes');
-    // let products = await Product.find({});
-    // res.json(products)
+
+    try {
+        let products = await Product.find({});
+        res.json(products)
+
+    } catch (error) {
+        res.json({ success: false, message: error });
+    }
+
 
 })
 
@@ -254,7 +260,7 @@ app.post('/removefromcart', fetchUser, async (req, res) => {
     res.send('deletetd');
 })
 
-app.post('/getcart', fetchUser, async(req, res)=>{
+app.post('/getcart', fetchUser, async (req, res) => {
     let userData = await Users.findOne({ _id: req.user.id });
     res.json(userData.cartData);
 })
