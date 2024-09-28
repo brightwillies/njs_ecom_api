@@ -116,8 +116,9 @@ app.post("/removeproduct", async (req, res) => {
 
 //creatng  app for gettting  all productts
 app.get("/allproducts", async (req, res) => {
-    let products = await Product.find({});
-    res.json(products)
+    res.send('Yes yes');
+    // let products = await Product.find({});
+    // res.json(products)
 
 })
 
