@@ -11,6 +11,22 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
+
+const allowedOrigins = [
+    'https://njs-realestate-swart.vercel.app', // Specific origin
+  ];
+  
+  app.use(cors({
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+        callback(null, true); // Allow the request if the origin is in the allowed list or if there's no origin (for non-browser requests)
+      } else {
+        callback(null, true); // Keep CORS open for other origins as well
+      }
+    },
+    credentials: true, // Allows sending cookies or credentials
+  }));
+
 //database connection with MongoDB
 mongoose.connect('mongodb+srv://devbrightwillies:4B2tfve5ckAkASzf@chatappcluster.kpzof.mongodb.net/recom_app?retryWrites=true&w=majority&appName=ChatAppCluster')
     .then(() => {
