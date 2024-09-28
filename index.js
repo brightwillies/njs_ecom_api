@@ -9,10 +9,11 @@ const port = 4000;
 const app = express();
 
 app.use(express.json());
-app.use(cors());
+// app.use(cors());
 
 
 const allowedOrigins = [
+    "http://localhost:5173",
     'https://njs-realestate-swart.vercel.app', // Specific origin
   ];
   
