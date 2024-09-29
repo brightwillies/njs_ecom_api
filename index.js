@@ -144,6 +144,25 @@ app.get("/allproducts", async (req, res) => {
 
 
 })
+app.get("/updateproducts", async (req, res) => {
+
+    try {
+        // let products = await Product.find({});
+        
+        const result = await Product.updateMany(
+            { image: { $regex: '^http://localhost:4000/' } }, // Match products with the old URL
+            [
+              { $set: { image: { $replaceOne: { input: "$image", find: "http://localhost:4000/", replacement: "https://njs-ecom-api.onrender.com/" } } } }
+            ]
+          );
+          console.log(`${result.modifiedCount} products updated successfully`);      
+
+    } catch (error) {
+        res.json({ success: false, message: error });
+    }
+
+
+})
 
 const Users = mongoose.model("Users", {
     name: {
